@@ -17,8 +17,12 @@ public class PlayerMovement : MonoBehaviour {
         if (moveDir == Vector2.zero) return;
 
         // Move forward
-        _rb.linearVelocity = transform.up * _forwardSpeed;
+        _rb.linearVelocity = _forwardSpeed * moveDir;
 
-        // Turn
+        // Turn to move direction
+        float cross = (moveDir.y*transform.up.x) - (moveDir.x*transform.up.y); // Calculate direction using 2D cross product
+        if (cross > -0.01 && cross < 0.01) return; // Stop rotating at really low values
+        
+        transform.Rotate(_turnSpeed * cross * Time.deltaTime * Vector3.forward);
     }
 }
