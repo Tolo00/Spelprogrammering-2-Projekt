@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 203557c4685c80476ad2a3fe1b101dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distanceFromCenter: 0.75
-  _projectilesPerSecond: 3
+  _distanceFromCenter: 0.6
+  _projectilesPerSecond: 6
   _spreadRandomness: 4
   _projectileCount: 2
-  _speed: 6
-  _speedRandomness: 0.1
+  _speed: 15
+  _speedRandomness: 1.5
   _simpleProjectilePrefab: {fileID: 608046496767500557, guid: 13da553243faf46298e395e8a53d80aa, type: 3}

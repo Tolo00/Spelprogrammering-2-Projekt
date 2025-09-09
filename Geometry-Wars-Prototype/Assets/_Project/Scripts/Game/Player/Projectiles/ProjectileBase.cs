@@ -2,6 +2,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public abstract class ProjectileBase : MonoBehaviour {
+    [SerializeField] GameObject _destroyParticlePrefab;
+
     protected float Speed;
     protected void SetSpeed(float speed) {
         Speed = speed;
@@ -37,14 +39,18 @@ public abstract class ProjectileBase : MonoBehaviour {
         Rigidbody.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
     }
     void Update() => OnUpdateEvent();
-    void OnCollisionEnter2D(Collision2D collision) => OnCollisionEvent(collision);
+    void OnCollisionEnter2D(Collision2D collision) => DestroySelf();
 
 
     protected virtual void OnInitialize() { }
 
     protected virtual void OnUpdateEvent() { }
 
-    protected virtual void OnCollisionEvent(Collision2D collision) {
+    protected virtual void DestroySelf() {
+        if (_destroyParticlePrefab != null) {
+            GameObject particle = Instantiate(_destroyParticlePrefab, null);
+            particle.transform.position = transform.position;
+        }
         Destroy(gameObject);
     }
 }
