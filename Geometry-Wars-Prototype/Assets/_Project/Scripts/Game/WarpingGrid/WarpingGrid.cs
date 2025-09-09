@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class WarpingGrid : MonoBehaviour {
     [Header("Grid Settings")]
@@ -22,13 +21,12 @@ public class WarpingGrid : MonoBehaviour {
     [SerializeField] MeshLineRenderer _lineRenderer;
 
     void Awake() {
-        // RenderPipelineManager.endCameraRendering += RenderGrid;
     
         Initialize();
     }
 
     void OnDestroy() {
-        // RenderPipelineManager.endCameraRendering -= RenderGrid;
+
     }
 
     private void Initialize() {
@@ -42,25 +40,22 @@ public class WarpingGrid : MonoBehaviour {
 
     private void BuildGrid() {
         _points = new GridPoint[_size.x, _size.y];
-        GridPoint[,] _fixedPoints = new GridPoint[_size.x, _size.y];
 
         _springs.Clear();
         
         // Create points
         for (int y = 0; y < _size.y; y++) {
             for (int x = 0; x < _size.x; x++) {
-                _points[x, y] = new GridPoint(new Vector2(x * _spacing.x, y * _spacing.y), 1);
-                _fixedPoints[x, y] = new GridPoint(new Vector2(x * _spacing.x, y * _spacing.y), 0);
+                if (x == 0 || y == 0 || x == _size.x-1 || y == _size.y-1)
+                    _points[x, y] = new GridPoint(new Vector2(x * _spacing.x, y * _spacing.y), 0); // Fixed wall points
+                else 
+                    _points[x, y] = new GridPoint(new Vector2(x * _spacing.x, y * _spacing.y), 1); // Moveable mesh points
             }
         }
 
         // Link points with springs
         for (int y = 0; y < _size.y; y++) {
-            for (int x = 0; x < _size.x; x++) {
-                if (x == 0 || y == 0 || x == _size.x-1 || y == _size.y-1)
-                    _springs.Add(new GridSpring(_fixedPoints[x,y], _points[x,y], 0.95f, 0.3f));
-                
-            
+            for (int x = 0; x < _size.x; x++) {  
                 if (x > 0) _springs.Add(new GridSpring(_points[x-1, y], _points[x,y], _stiffness, _damping));
                 if (y > 0) _springs.Add(new GridSpring(_points[x, y-1], _points[x,y], _stiffness, _damping));
             }   
@@ -88,11 +83,6 @@ public class WarpingGrid : MonoBehaviour {
             }
         }
     }
-
-    // private void RenderGrid(ScriptableRenderContext context, Camera camera) {
-    //     if (!_initialized) return;
-    //     _lineRenderer.RenderLines();
-    // }
 
     void OnDrawGizmosSelected() {
         // Draw borders

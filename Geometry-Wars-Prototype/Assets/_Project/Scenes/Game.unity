@@ -153,8 +153,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _size: {x: 15, y: 11}
   _spacing: {x: 2, y: 2}
-  _stiffness: 0.25
-  _damping: 0.21
+  _stiffness: 0.23
+  _damping: 0.17
   _lineWidth: 0.03
   _color: {r: 0.42646992, g: 0.88888437, b: 1, a: 0.047058824}
   _material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
@@ -594,7 +594,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 7.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -687,8 +687,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   warpingGrid: {fileID: 8285574}
-  explosiveForce: 8.71
-  explosiveRadius: 1.91
+  explosiveForce: 10.88
+  explosiveRadius: 2.36
   implosiveForce: 7.2
   implosiveRadius: 5.16
 --- !u!4 &560136546
@@ -800,7 +800,7 @@ GameObject:
   m_Component:
   - component: {fileID: 732859792}
   - component: {fileID: 732859793}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5871,7 +5871,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 34
-    OrthographicSize: 8
+    OrthographicSize: 7.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -6443,9 +6443,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1654847657}
   - component: {fileID: 1654847658}
+  - component: {fileID: 1654847661}
   - component: {fileID: 1654847659}
   - component: {fileID: 1654847660}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6466,6 +6467,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 732859792}
+  - {fileID: 1798530599}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1654847658
@@ -6545,6 +6547,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &1654847661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654847656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e51d709916a23cf67b3c6a8815566ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gunHolder: {fileID: 1798530599}
+  _defaultGunPrefab: {fileID: 8408041352951622155, guid: a1b0f63ded8c5eec58bf8857893cc0b0, type: 3}
 --- !u!1 &1736953850
 GameObject:
   m_ObjectHideFlags: 0
@@ -6679,6 +6695,37 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2, y: 22}
   m_EdgeRadius: 0
+--- !u!1 &1798530598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1798530599}
+  m_Layer: 6
+  m_Name: GunHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1798530599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798530598}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1654847657}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2004393605
 GameObject:
   m_ObjectHideFlags: 0

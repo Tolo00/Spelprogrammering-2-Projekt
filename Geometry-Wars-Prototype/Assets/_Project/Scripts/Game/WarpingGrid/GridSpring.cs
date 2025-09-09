@@ -10,7 +10,7 @@ public class GridSpring {
     public GridSpring(GridPoint pointA, GridPoint pointB, float stiffness, float damping) {
         PointA = pointA;
         PointB = pointB;
-        TargetLength = Vector3.Distance(pointA.Position, pointB.Position) * 0.95f;
+        TargetLength = Vector3.Distance(pointA.Position, pointB.Position);
         Stiffness = stiffness;
         Damping = damping;
     }

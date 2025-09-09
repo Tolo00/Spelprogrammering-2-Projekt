@@ -1,3 +1,4 @@
+using Arosoul.Essentials;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -14,15 +15,21 @@ public class PlayerMovement : MonoBehaviour {
 
     void Update() {
         Vector2 moveDir = GameInput.Move;
+        Vector2 forwardDir = transform.up;
         if (moveDir == Vector2.zero) return;
 
         // Move forward
         _rb.linearVelocity = _forwardSpeed * moveDir;
 
         // Turn to move direction
-        float cross = (moveDir.y*transform.up.x) - (moveDir.x*transform.up.y); // Calculate direction using 2D cross product
-        if (cross > -0.01 && cross < 0.01) return; // Stop rotating at really low values
+        float cross = (moveDir.x*forwardDir.y) - (moveDir.y*forwardDir.x); // Calculate direction using 2D cross product
+        int dirToTurn = cross >= 0 ? -1 : 1;
+
+        float dot = Vector2.Dot(moveDir, forwardDir);
+        if (Vector2.Angle(moveDir, forwardDir) < 1f) return; // Stop rotating when really close to target angle
+
+        float turnVelocity = _turnSpeed * dot.MapValue(-1, 1, 1, 0.4f);
         
-        transform.Rotate(_turnSpeed * cross * Time.deltaTime * Vector3.forward);
+        transform.Rotate(dirToTurn * turnVelocity * Time.deltaTime * Vector3.forward);
     }
 }
