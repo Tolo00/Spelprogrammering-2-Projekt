@@ -1,4 +1,2 @@
 
-public class SimpleProjectile : ProjectileBase {
-    
-}
+public class SimpleProjectile : ProjectileBase { }

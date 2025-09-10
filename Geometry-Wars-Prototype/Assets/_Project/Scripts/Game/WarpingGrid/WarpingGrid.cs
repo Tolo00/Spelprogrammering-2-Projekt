@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Arosoul.Essentials;
 using UnityEngine;
 
-public class WarpingGrid : MonoBehaviour {
+public class WarpingGrid : Singleton<WarpingGrid> {
     [Header("Grid Settings")]
     [SerializeField, Min(3)] Vector2Int _size;
     [SerializeField, Min(0.5f)] Vector2 _spacing;
@@ -95,23 +96,25 @@ public class WarpingGrid : MonoBehaviour {
         Gizmos.DrawLine(topRight, new Vector2(bottomLeft.x, topRight.y));
     }
 
-
-
     #region Manipulate Grid
-    public void ApplyImposiveForce(float force, Vector2 position, float radius) {
-        foreach (GridPoint point in _points) {
-            Vector2 relativePointPos = (Vector2)transform.position + point.Position;
+    public static void ApplyImpulseForce(float force, Vector2 position, float radius) {
+        if (!Inst.ValidateSingleton()) return;
+
+        foreach (GridPoint point in Inst._points) {
+            Vector2 relativePointPos = (Vector2)Inst.transform.position + point.Position;
             float distSqr = (position - relativePointPos).sqrMagnitude;
             if (distSqr < radius * radius) {
-                point.AddForce(10 * force * (position - relativePointPos) / (100 + distSqr));
+                point.AddForce(100 * force * (position - relativePointPos) / (1000 + distSqr));
                 point.IncreaseDamping(0.6f);
             }
         }
     }
 
-    public void ApplyExplosiveForce(float force, Vector2 position, float radius) {
-        foreach (GridPoint point in _points) {
-            Vector2 relativePointPos = (Vector2)transform.position + point.Position;
+    public static void ApplyExplosiveForce(float force, Vector2 position, float radius) {
+        if (!Inst.ValidateSingleton()) return;
+
+        foreach (GridPoint point in Inst._points) {
+            Vector2 relativePointPos = (Vector2)Inst.transform.position + point.Position;
             float distSqr = (position - relativePointPos).sqrMagnitude;
             if (distSqr < radius * radius) {
                 point.AddForce(100 * force * (relativePointPos - position) / (10000 + distSqr));
@@ -119,5 +122,11 @@ public class WarpingGrid : MonoBehaviour {
             }
         }
     }
-#endregion
+    #endregion
+
+    private bool ValidateSingleton() {
+        if (Inst == null) Debug.LogWarning("Warping Grid does not exist in scene.");
+        return Inst != null;
+    }
+
 }
