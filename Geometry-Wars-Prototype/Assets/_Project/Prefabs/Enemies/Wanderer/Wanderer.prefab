@@ -67,7 +67,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: {x: 0, y: 0}
   _particle: {fileID: 1757820830527919922, guid: 1ce0799812c31d1c59de56779c084043, type: 3}
-  _sound: {fileID: 0}
+  _sound: {fileID: 8300000, guid: 9b54372b8f458e605950797b6774958d, type: 3}
   _volume: 1
   warpingEnabled: 1
   warpingType: 0

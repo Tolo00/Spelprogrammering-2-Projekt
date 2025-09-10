@@ -47,7 +47,7 @@ public class EnemySpawner : MonoBehaviour {
     private void TriggerSpawn() {
         
         // Spawn one wave of enemies around the player
-        int spawnAmount = (int)Random.Range((float)_minEnemiesPerInterval, (float)_maxEnemiesPerInterval+1);
+        int spawnAmount = Random.Range(_minEnemiesPerInterval, _maxEnemiesPerInterval+1);
         for (int i = 0; i < spawnAmount; i++) {
             int enemyIndex = (int)Random.Range(0f, _enemyPrefabs.Length);
             GameObject enemyPrefab = _enemyPrefabs[enemyIndex];
