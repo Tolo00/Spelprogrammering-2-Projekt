@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour, IHittable {
+    [Header("Enemy Settings")]
+    [SerializeField] int _scoreToAdd = 10;
+
     private int _hp;
 
     public event EventHandler OnDestroyEvent;
@@ -16,6 +19,7 @@ public abstract class EnemyBase : MonoBehaviour, IHittable {
 
     private void KillEnemy() {
         DestroySelf();
+        GameManager.Inst.AddScoreWithMulti(_scoreToAdd);
     }
 
     public virtual void DestroySelf() {

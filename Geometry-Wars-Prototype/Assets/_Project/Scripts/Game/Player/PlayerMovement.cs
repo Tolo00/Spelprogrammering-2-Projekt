@@ -8,12 +8,16 @@ public class PlayerMovement : MonoBehaviour {
 
 
     private Rigidbody2D _rb;
+    private Player _player;
 
     void Awake() {
         _rb = GetComponent<Rigidbody2D>();
+        _player = GetComponent<Player>();
     }
 
     void Update() {
+        if (!_player.InputEnabled) return;
+
         Vector2 moveDir = GameInput.Move;
         Vector2 forwardDir = transform.up;
         if (moveDir == Vector2.zero) return;

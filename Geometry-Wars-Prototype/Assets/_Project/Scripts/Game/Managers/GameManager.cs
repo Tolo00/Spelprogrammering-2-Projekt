@@ -15,8 +15,10 @@ public class GameManager : Singleton<GameManager> {
     public event EventHandler<int> OnPlayerLivesChanged;
     public event EventHandler<int> OnCurrentScoreChanged;
     public event EventHandler<int> OnScoreMultiplierChanged;
+    public event EventHandler<float> OnGameTimerTick; 
 
-    
+
+    // Player Lives
     private int _playerLives;
     public int PlayerLives { 
         get { return _playerLives;
@@ -27,6 +29,12 @@ public class GameManager : Singleton<GameManager> {
         }
     }
 
+    public void AddToPlayerLives(int amount) {
+        PlayerLives += amount;
+    }
+
+
+    // Score & Highscore
     private int _currentScore;
     public int CurrentScore { 
         get { return _currentScore; } 
@@ -35,20 +43,53 @@ public class GameManager : Singleton<GameManager> {
             if (CurrentScore > Highscore) {
                 Highscore = CurrentScore;
             }
-            OnCurrentScoreChanged?.Invoke(this, CurrentScore);
+            
+            CheckScore();
+            OnCurrentScoreChanged?.Invoke(this, _currentScore);
         } 
     }
+
+    public void AddScoreWithMulti(int scoreToAdd) {
+        CurrentScore += scoreToAdd * ScoreMultiplier;
+    }
+
     public int Highscore { get; private set; }
 
-    private int _scoreMultiplier;
+
+    private int _nextLifeScore = 10000;
+    private void CheckScore() {
+        // Add 1 life at every 100x incriment (10.000, 100.000, 1.000.000, 10.000.000 ...)
+        if (CurrentScore >= _nextLifeScore) {
+            PlayerLives++;
+            _nextLifeScore *= 10;
+        }
+    }
+
+    // Multiplier
+    private int _scoreMultiplier = 1;
     public int ScoreMultiplier { 
         get { return _scoreMultiplier;
         } 
         private set {
+            if (_scoreMultiplier <= 0) _scoreMultiplier = 1;
             _scoreMultiplier = value;
+
             OnScoreMultiplierChanged?.Invoke(this, ScoreMultiplier);
         }
     }
+
+    public void SetScoreMultiplier(int multiplier) {
+        _scoreMultiplier = multiplier;
+    }
+
+
+    // Timer Logic
+    public float GameTimer { get; private set; }
+    private void GameTimerTick() {
+        GameTimer += Time.deltaTime;
+        OnGameTimerTick(this, GameTimer);
+    }
+
 
 
     protected override void OnSingletonEnable() {
@@ -61,9 +102,13 @@ public class GameManager : Singleton<GameManager> {
 
     private void InitializeValues() {
         CurrentScore = 0;
+        ScoreMultiplier = 1;
         PlayerLives = 3;
     }
 
+    void Update() {
+        GameTimerTick();
+    }
 
 
 

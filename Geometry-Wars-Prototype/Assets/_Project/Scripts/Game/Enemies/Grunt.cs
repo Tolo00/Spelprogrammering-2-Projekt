@@ -13,10 +13,12 @@ public class Grunt : EnemyBase {
 
     void Start() {
         _rb = GetComponent<Rigidbody2D>();
-        _player = FindAnyObjectByType<Player>();
+        _player = FindAnyObjectByType<Player>(FindObjectsInactive.Include);
     }
 
     void FixedUpdate() {
+        if (!_player.gameObject.activeInHierarchy) return;
+
         ExecuteBehaviour();
     }
 

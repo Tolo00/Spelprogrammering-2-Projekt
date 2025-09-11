@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -20,6 +19,8 @@ public class GameUIController : MonoBehaviour {
         GameManager.Inst.OnCurrentScoreChanged += OnScoreChanged;
         GameManager.Inst.OnScoreMultiplierChanged += OnScoreMultiplierChanged;
         GameManager.Inst.OnPlayerLivesChanged += OnPlayerLivesChanged;
+
+        GameManager.Inst.OnGameTimerTick += OnGameTimerTick;
     }
 
     void OnDisable() {
@@ -28,6 +29,9 @@ public class GameUIController : MonoBehaviour {
         GameManager.Inst.OnCurrentScoreChanged -= OnScoreChanged;
         GameManager.Inst.OnScoreMultiplierChanged -= OnScoreMultiplierChanged;
         GameManager.Inst.OnPlayerLivesChanged -= OnPlayerLivesChanged;
+
+        GameManager.Inst.OnGameTimerTick -= OnGameTimerTick;
+
     }
 
 
@@ -37,14 +41,21 @@ public class GameUIController : MonoBehaviour {
     }
 
     private void OnScoreChanged(object sender, int score) {
-        _scoreTextElement.text = $"SCORE\n{score}";
-        _highscoreTextElement.text = $"HIGHSCORE\n{GameManager.Inst.Highscore}";
+        string formattedScore = score.ToString("N0");
+        string formattedHighscore = GameManager.Inst.Highscore.ToString("N0");
+
+        _scoreTextElement.text = $"SCORE\n{formattedScore}";
+        _highscoreTextElement.text = $"HIGHSCORE\n{formattedHighscore}";
     }   
 
     private void OnScoreMultiplierChanged(object sender, int multiplier) {
-        _multiplierTextElement.text = $"x\n{multiplier}";
-    }   
+        _multiplierTextElement.text = $"x{multiplier}";
+    }
 
+    private void OnGameTimerTick(object sender, float time) {
+        System.TimeSpan formattedTime = System.TimeSpan.FromSeconds(time);
+        _timerTextElement.text = formattedTime.ToString(@"mm\:ss");
+    }
 
 
     private void SetPlayerLivesCount(int count) {

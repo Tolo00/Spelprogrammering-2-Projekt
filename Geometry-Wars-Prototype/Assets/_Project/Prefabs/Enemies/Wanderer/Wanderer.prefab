@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 732bb8fdf560965a692ab08a1f4200c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scoreToAdd: 75
   _minSpeed: 2
   _maxSpeed: 5
   _angularVelRandomness: 100

@@ -14,12 +14,21 @@ public class PlayerGun : MonoBehaviour {
     private bool _fireEnabled;
     private Vector2 _fireDirection;
 
+    private Player _playerRef;
+
     void Awake() {
+        _playerRef = GetComponent<Player>();
+
         EquipDefaultGun();
     }
 
 
     void Update() {
+        if (!_playerRef.InputEnabled) {
+            _gunInterface.SetEnabled(false);
+            return;
+        }
+
         if (GameInput.ActiveDevice == DeviceType.Keyboard) GetKeyboardInput();
         else if (GameInput.ActiveDevice == DeviceType.Controller) GetControllerInput();
         else return;
