@@ -150,12 +150,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: {x: 0, y: 0}
   _particle: {fileID: 5858195800975159053, guid: 774997455ca239b54a616560c2922956, type: 3}
-  _sound: {fileID: 8300000, guid: 9b54372b8f458e605950797b6774958d, type: 3}
-  _volume: 1
+  _sound: {fileID: 8300000, guid: 6cea0ecbc78a6eeec86b15bac131e14f, type: 3}
+  _volume: 1.314
   warpingEnabled: 1
-  warpingType: 1
-  warpingForce: 10
-  warpingRadius: 2
+  warpingType: 0
+  warpingForce: 50
+  warpingRadius: 2.5
 --- !u!50 &5851366723746593873
 Rigidbody2D:
   serializedVersion: 5

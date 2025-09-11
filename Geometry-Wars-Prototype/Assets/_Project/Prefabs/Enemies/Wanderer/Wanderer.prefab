@@ -72,7 +72,7 @@ MonoBehaviour:
   warpingEnabled: 1
   warpingType: 0
   warpingForce: 50
-  warpingRadius: 2
+  warpingRadius: 2.5
 --- !u!50 &7847948827222933611
 Rigidbody2D:
   serializedVersion: 5

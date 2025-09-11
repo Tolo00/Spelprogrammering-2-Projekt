@@ -7,3 +7,13 @@ https://freesound.org/people/Rolly-SFX/sounds/626274/
 
 "8Bit Explosion" by Duskbreaker
 https://freesound.org/people/Duskbreaker/sounds/641486/
+
+"8-Bit Cannon.wav" by DeVern
+https://freesound.org/people/DeVern/sounds/517664/
+
+
+
+
+# FONTS
+
+Se licenses inside respective font folder: "_Project/Fonts"
