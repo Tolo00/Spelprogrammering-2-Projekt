@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class GameUIController : MonoBehaviour {
+public class GameUI : MonoBehaviour {
     [SerializeField] TMP_Text _scoreTextElement;
     [SerializeField] TMP_Text _highscoreTextElement;
     [SerializeField] TMP_Text _multiplierTextElement;
@@ -42,7 +42,7 @@ public class GameUIController : MonoBehaviour {
 
     private void OnScoreChanged(object sender, int score) {
         string formattedScore = score.ToString("N0");
-        string formattedHighscore = GameManager.Inst.Highscore.ToString("N0");
+        string formattedHighscore = GameManager.Inst.RuntimeSaveData.Highscore.ToString("N0");
 
         _scoreTextElement.text = $"SCORE\n{formattedScore}";
         _highscoreTextElement.text = $"HIGHSCORE\n{formattedHighscore}";

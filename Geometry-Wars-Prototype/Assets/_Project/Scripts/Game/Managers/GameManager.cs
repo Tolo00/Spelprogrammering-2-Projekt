@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SaveData {
     public int Highscore;
+    public int HighestMultiplier;
 }
 
 public class GameManager : Singleton<GameManager> {
@@ -15,8 +16,9 @@ public class GameManager : Singleton<GameManager> {
     public event EventHandler<int> OnPlayerLivesChanged;
     public event EventHandler<int> OnCurrentScoreChanged;
     public event EventHandler<int> OnScoreMultiplierChanged;
-    public event EventHandler<float> OnGameTimerTick; 
 
+    public event EventHandler<float> OnGameTimerTick; 
+    public event EventHandler OnGameOver;
 
     // Player Lives
     private int _playerLives;
@@ -25,12 +27,20 @@ public class GameManager : Singleton<GameManager> {
         } 
         private set {
             _playerLives = value;
+
+            CheckPlayerLives();
             OnPlayerLivesChanged?.Invoke(this, PlayerLives);
         }
     }
 
     public void AddToPlayerLives(int amount) {
         PlayerLives += amount;
+    }
+
+    private void CheckPlayerLives() {
+        if (_playerLives <= 0) {
+            TriggerGameOver();
+        }
     }
 
 
@@ -40,8 +50,8 @@ public class GameManager : Singleton<GameManager> {
         get { return _currentScore; } 
         private set {
             _currentScore = value;
-            if (CurrentScore > Highscore) {
-                Highscore = CurrentScore;
+            if (CurrentScore > RuntimeSaveData.Highscore) {
+                RuntimeSaveData.Highscore = CurrentScore;
             }
             
             CheckScore();
@@ -53,7 +63,6 @@ public class GameManager : Singleton<GameManager> {
         CurrentScore += scoreToAdd * ScoreMultiplier;
     }
 
-    public int Highscore { get; private set; }
 
 
     private int _nextLifeScore = 10000;
@@ -71,12 +80,14 @@ public class GameManager : Singleton<GameManager> {
         get { return _scoreMultiplier;
         } 
         private set {
-            if (_scoreMultiplier <= 0) _scoreMultiplier = 1;
             _scoreMultiplier = value;
+            if (_scoreMultiplier <= 0) _scoreMultiplier = 1;
+            if (_scoreMultiplier > RuntimeSaveData.HighestMultiplier) RuntimeSaveData.HighestMultiplier = _scoreMultiplier;
 
             OnScoreMultiplierChanged?.Invoke(this, ScoreMultiplier);
         }
     }
+
 
     public void SetScoreMultiplier(int multiplier) {
         _scoreMultiplier = multiplier;
@@ -91,9 +102,26 @@ public class GameManager : Singleton<GameManager> {
     }
 
 
+    // Game Over
+    public bool GameOver { get; private set; }
+    public void TriggerGameOver() {
+        GameOver = true;
+        KillAllEnemies();
+        SaveSaveData();
+
+        OnGameOver?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void KillAllEnemies() {
+        EnemyBase[] enemies = FindObjectsByType<EnemyBase>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (EnemyBase enemy in enemies) { enemy.DestroySelf(); }
+    }
+
+
+
 
     protected override void OnSingletonEnable() {
-        LoadGameData();
+        LoadSaveData();
     }
 
     void Start() {
@@ -107,25 +135,20 @@ public class GameManager : Singleton<GameManager> {
     }
 
     void Update() {
-        GameTimerTick();
+        if (!GameOver) GameTimerTick();
     }
 
 
 
-    public void SaveHighscore() {
-        if (CurrentScore > RuntimeSaveData.Highscore) {
-            RuntimeSaveData.Highscore = CurrentScore;
-            SaveGameData();
-        }
-    }
 
-    private void SaveGameData() {
+#region Save & Load
+    private void SaveSaveData() {
         string path = Path.Combine(Application.persistentDataPath, SAVE_DATA_PATH);
         string json = JsonUtility.ToJson(RuntimeSaveData, false);
         File.WriteAllText(path, json);
     }
 
-    private void LoadGameData() {
+    private void LoadSaveData() {
         string path = Path.Combine(Application.persistentDataPath, SAVE_DATA_PATH);
         if (File.Exists(path)) {
             string json = File.ReadAllText(path);
@@ -134,6 +157,6 @@ public class GameManager : Singleton<GameManager> {
         else {
             RuntimeSaveData = new SaveData();
         }
-
     }
+#endregion
 }

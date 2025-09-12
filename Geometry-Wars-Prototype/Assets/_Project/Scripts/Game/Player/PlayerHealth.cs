@@ -51,6 +51,8 @@ public class PlayerHealth : MonoBehaviour {
 
         await Awaitable.WaitForSecondsAsync(_respawnDelay);
         
+        if (GameManager.Inst.GameOver) return; // Don't respawn if game has ended
+
         // Respawn
         transform.position = _spawnPosition;
         Invulnerable = true;

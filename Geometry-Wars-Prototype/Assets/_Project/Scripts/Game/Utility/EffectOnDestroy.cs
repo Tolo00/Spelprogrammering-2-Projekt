@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum WarpingType { Explosive, Impulse }
 
@@ -17,6 +18,7 @@ public class EffectOnDestroy : MonoBehaviour {
     [SerializeField] float warpingForce = 5f;
     [SerializeField] float warpingRadius = 2f;
 
+
     bool isQuitting = false;
     void OnApplicationQuit() {
         isQuitting = true;
@@ -29,6 +31,7 @@ public class EffectOnDestroy : MonoBehaviour {
         PlaySound();
         WarpingEffect();
     }
+
 
 
     private void SpawnParticle() {

@@ -29,6 +29,9 @@ public class EnemySpawner : MonoBehaviour {
 
     void Start() {
         Invoke("EnableSpawning", startDelay);
+
+        // Events
+        GameManager.Inst.OnGameOver += GameManager_OnGameOver;
     }
     private void EnableSpawning() => spawningEnabled = true;
 
@@ -43,6 +46,13 @@ public class EnemySpawner : MonoBehaviour {
             TriggerSpawn();
         }
     }
+    
+
+    private void GameManager_OnGameOver(object sender, System.EventArgs e) {
+        spawningEnabled = false;
+    }
+
+
 
     private void TriggerSpawn() {
         
