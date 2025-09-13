@@ -65,9 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'SCORE
-
-    164,225'
+  m_text: Text Element
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9567eceb716679419b244bf27d5ae87a, type: 2}
   m_sharedMaterial: {fileID: 3014042648673726849, guid: 9567eceb716679419b244bf27d5ae87a, type: 2}
@@ -76,7 +74,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282974099
+    rgba: 3762880403
   m_fontColor: {r: 0.57810515, g: 1, b: 0.2813145, a: 0.8784314}
   m_enableVertexGradient: 0
   m_colorMode: 3

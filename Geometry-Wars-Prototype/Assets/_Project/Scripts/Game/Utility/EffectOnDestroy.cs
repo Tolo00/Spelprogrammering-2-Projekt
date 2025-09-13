@@ -12,6 +12,11 @@ public class EffectOnDestroy : MonoBehaviour {
     [SerializeField] AudioClip _sound;
     [SerializeField, Range(0, 1.5f)] float _volume = 1f;
 
+    [Header("Screen Shake")]
+    [SerializeField] float _screenShakeForce = 0.5f;
+    [SerializeField] float _screenShakeTime = 0.5f;
+    [SerializeField] ScreenShakeProfile _customProfile;
+
     [Header("Warping Grid")]
     [SerializeField] bool warpingEnabled = false;
     [SerializeField] WarpingType warpingType ;
@@ -30,6 +35,7 @@ public class EffectOnDestroy : MonoBehaviour {
         SpawnParticle();
         PlaySound();
         WarpingEffect();
+        ScreenShake();
     }
 
 
@@ -50,5 +56,12 @@ public class EffectOnDestroy : MonoBehaviour {
         if (!warpingEnabled) return;
         if (warpingType == WarpingType.Explosive) WarpingGrid.ApplyExplosiveForce(warpingForce, transform.position, warpingRadius);
         if (warpingType == WarpingType.Impulse) WarpingGrid.ApplyImpulseForce(warpingForce, transform.position, warpingRadius);
+    }
+
+    private void ScreenShake() {
+        if (_customProfile == null)
+            ScreenShakeManager.Inst.CameraShake(_screenShakeForce, _screenShakeTime);
+        else 
+            ScreenShakeManager.Inst.CameraShake(_screenShakeForce, _screenShakeTime, _customProfile);
     }
 }

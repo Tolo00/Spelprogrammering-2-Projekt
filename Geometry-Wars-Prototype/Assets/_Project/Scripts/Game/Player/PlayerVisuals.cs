@@ -8,8 +8,10 @@ public class PlayerVisuals : MonoBehaviour {
     [SerializeField] SpriteRenderer _shipRenderer;
     [SerializeField] SpriteRenderer _shieldRenderer;
 
-    [Header("Particles")]
+    [Header("Death Effects")]
     [SerializeField] ParticleSystem _deathParticles;
+    [SerializeField] float _warpingForce = 60f;
+    [SerializeField] float _warpingRadius = 5f;
 
     void Awake() {
         _shieldRenderer.enabled = false;
@@ -31,6 +33,8 @@ public class PlayerVisuals : MonoBehaviour {
             ParticleSystem inst = Instantiate(_deathParticles, null);
             inst.transform.position = transform.position;
         }
+
+        WarpingGrid.ApplyExplosiveForce(_warpingForce, transform.position, _warpingRadius);
 
         _shipRenderer.enabled = false;
     }

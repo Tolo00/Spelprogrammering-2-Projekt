@@ -21,10 +21,10 @@ public class EnemySpawner : MonoBehaviour {
 
 
     private List<EnemyBase> _enemiesAlive = new();
-    private bool spawningEnabled;
+    private bool _spawningEnabled;
 
-    private float spawnInterval;
-    private float spawnIntervalTimer;
+    private float _spawnInterval;
+    private float _spawnIntervalTimer;
 
 
     void Start() {
@@ -33,15 +33,15 @@ public class EnemySpawner : MonoBehaviour {
         // Events
         GameManager.Inst.OnGameOver += GameManager_OnGameOver;
     }
-    private void EnableSpawning() => spawningEnabled = true;
+    private void EnableSpawning() => _spawningEnabled = true;
 
     void Update() {
-        if (!spawningEnabled) return;
+        if (!_spawningEnabled) return;
 
-        spawnIntervalTimer += Time.deltaTime;
-        if (spawnIntervalTimer >= spawnInterval) {
-            spawnIntervalTimer = 0;
-            spawnInterval = Random.Range(_minSpawnInterval, _maxSpawnInterval);
+        _spawnIntervalTimer += Time.deltaTime;
+        if (_spawnIntervalTimer >= _spawnInterval) {
+            _spawnIntervalTimer = 0;
+            _spawnInterval = Random.Range(_minSpawnInterval, _maxSpawnInterval);
 
             TriggerSpawn();
         }
@@ -49,7 +49,7 @@ public class EnemySpawner : MonoBehaviour {
     
 
     private void GameManager_OnGameOver(object sender, System.EventArgs e) {
-        spawningEnabled = false;
+        _spawningEnabled = false;
     }
 
 

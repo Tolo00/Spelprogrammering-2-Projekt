@@ -3,16 +3,16 @@ using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour, IHittable {
     [Header("Enemy Settings")]
-    [SerializeField] int _scoreToAdd = 10;
+    [SerializeField] int _scoreToAdd = 100;
 
-    private int _hp;
+    protected int Health;
 
     public event EventHandler OnDestroyEvent;
 
 
-    public void AddToHP(int amount) {
-        _hp += amount;
-        if (_hp <= 0) {
+    public void AddToHealth(int amount) {
+        Health += amount;
+        if (Health <= 0) {
             KillEnemy();
         }
     }
@@ -28,6 +28,6 @@ public abstract class EnemyBase : MonoBehaviour, IHittable {
     }
 
     public void OnHit() {
-        AddToHP(-1);
+        AddToHealth(-1);
     }
 }

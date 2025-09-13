@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 646d984f5ea518c8ca2abf9767b0372d, type: 3}
-  m_Color: {r: 0.24888986, g: 0.99216104, b: 1, a: 1}
+  m_Sprite: {fileID: -9176122009169712612, guid: 7c72f780866113149b0697dffe352028, type: 3}
+  m_Color: {r: 1, g: 0.9823987, b: 0.24705881, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,12 +96,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 635899301891086120}
-  - component: {fileID: 6410800480677448549}
+  - component: {fileID: -6965562432021674562}
   - component: {fileID: 2419939632649040284}
   - component: {fileID: 5851366723746593873}
   - component: {fileID: 7966549983439471703}
   m_Layer: 8
-  m_Name: Grunt
+  m_Name: Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +123,7 @@ Transform:
   - {fileID: 2055073271964767995}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6410800480677448549
+--- !u!114 &-6965562432021674562
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,11 +132,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5560516733114225749}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3d96979e84b61756b04604a1a1e82e4, type: 3}
+  m_Script: {fileID: 11500000, guid: b3f1b9c3fddfe16d8b6904adc2d29885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreToAdd: 125
-  _acceleration: 1
+  _scoreToAdd: 250
+  _health: 5
+  _acceleration: 0.5
+  _maxSpeed: 2
 --- !u!114 &2419939632649040284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,15 +152,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _offset: {x: 0, y: 0}
-  _particle: {fileID: 5858195800975159053, guid: 774997455ca239b54a616560c2922956, type: 3}
+  _particle: {fileID: 5858195800975159053, guid: b145f4e943410bb19973b96816d85616, type: 3}
   _sound: {fileID: 8300000, guid: 6cea0ecbc78a6eeec86b15bac131e14f, type: 3}
   _volume: 1.314
-  _screenShakeForce: 0.1
+  _screenShakeForce: 0.12
   _screenShakeTime: 0.2
   _customProfile: {fileID: 0}
   warpingEnabled: 1
   warpingType: 1
-  warpingForce: 3
+  warpingForce: 5
   warpingRadius: 3.5
 --- !u!50 &5851366723746593873
 Rigidbody2D:

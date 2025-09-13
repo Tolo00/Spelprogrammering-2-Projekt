@@ -64,6 +64,9 @@ MonoBehaviour:
   _particle: {fileID: 7245149661218207572, guid: 59e59c251186ecb41b8c3ba24fa8de7d, type: 3}
   _sound: {fileID: 0}
   _volume: 1
+  _screenShakeForce: 0.01
+  _screenShakeTime: 0.05
+  _customProfile: {fileID: 0}
   warpingEnabled: 1
   warpingType: 0
   warpingForce: 5
